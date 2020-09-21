@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {%if respuesta%}
+        {%if error%}
+            <div class="alert alert-danger" role="alert">
+                Error en los datos ingresados
+            </div>
+        {%else%}
+            {%if status%}
+               <div class="alert alert-info" role="alert">
+                    Solicitud aceptada!
+                </div>
+            {%else%}
+                <div class="alert alert-danger" role="alert">
+                    Solicitud denegada
+                </div>
+            {%endif%}
+        {%endif%}
+    {%endif%}
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="NameInput">Nombre </label>
+            <input type="text" name="nombre" class="form-control" id="NameInput" required>
+        </div>
+        <div class="form-group">
+            <label for="LastNameInput">Apellido </label>
+            <input type="text" name="apellido" class="form-control" id="LastNameInput" required>
+        </div>
+        <div class="form-group">
+           <label for="dniInput">DNI </label>
+            <input type="number" name="dni" class="form-control" id="dniInput" maxlength="8" required>
+        </div>
+        <div class="form-group">
+           <label for="montoInput">Monto </label>
+            <input type="number" name="monto" class="form-control" id="montoInput" maxlength="8" required>
+        </div>
+        <div class="form-group">
+            <label for="emailInput">Email </label>
+            <input type="email" name="email" class="form-control" id="emailInput" placeholder="name@example.com" required>
+       </div>
+        <div class="form-group">
+            <label for="genero">Genero</label>
+            <select class="form-control" name="genero" id="genero">
+            <option>Masculino</option>
+            <option>Femenino</option>
+            <option selected>Indefinido</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-secondary">Solicitar</button>
+    </form>
+{% endblock %}

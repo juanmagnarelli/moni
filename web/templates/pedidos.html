@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+   <h1 class="display-4">Pedidos</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td cope="col">#</td>
+                <td cope="col">Nombre</td>
+                <td cope="col">Apellido</td>
+                <td cope="col">DNI</td>
+                <td cope="col">Email</td>
+                <td cope="col">Genero</td>
+                <td cope="col">Monto Solicitado</td>
+                <td cope="col">Resultado</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% if pedidos %}
+                {% for pedido in pedidos %}
+                    <tr>
+                        <td>{{ pedido.id }}</td>
+                        <td>{{ pedido.nombre }}</td>
+                        <td>{{ pedido.apellido }}</td>
+                        <td>{{ pedido.dni }}</td>
+                        <td>{{ pedido.email }}</td>
+                        <td>{{ pedido.genero }}</td>
+                        <td>{{ pedido.monto }}</td>
+                        <td>{{ pedido.status }}</td>
+                        <td>
+                            <form action="/pedidos/" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="{{ pedido.id }}">
+                                <input type="submit" class="btn btn-danger"  value="Delete">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
